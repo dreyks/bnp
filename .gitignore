@@ -17,7 +17,7 @@
 
 # this is generated buy grunt
 /public
-
+/node_modules
 # Angular app
 /ng-app/node_modules
 /ng-app/.tmp

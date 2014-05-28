@@ -5,10 +5,14 @@ gem 'rails', '4.1.1'
 gem 'rails-api'
 
 group :development do
+  gem 'mysql2'
   gem 'spring'
 end
 
-gem 'mysql2'
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
 
 
 
