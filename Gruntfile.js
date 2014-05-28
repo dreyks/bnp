@@ -8,10 +8,11 @@ module.exports = function(grunt) {
   'use strict';
 
   grunt.initConfig({
-    'install-dependencies': {
-      options: {
-        cwd: 'ng-app',
-        isDevelopment: true,
+    auto_install: {
+      ng_app: {
+        options: {
+          cwd: 'ng-app',
+        }
       }
     },
     hub: {
@@ -22,9 +23,10 @@ module.exports = function(grunt) {
     },
   });
 
-  grunt.loadNpmTasks('grunt-install-dependencies');
+  grunt.loadNpmTasks('grunt-auto-install');
   grunt.loadNpmTasks('grunt-hub');
 
-  grunt.registerTask('default', ['install-dependencies', 'hub']);
-  grunt.registerTask('heroku', ['install-dependencies', 'hub']);
+  grunt.registerTask('install', ['auto_install']);
+  grunt.registerTask('default', ['auto_install', 'hub']);
+  grunt.registerTask('heroku', ['auto_install', 'hub']);
 };
