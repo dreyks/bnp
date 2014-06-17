@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :page do
+    content 'default content'
+    title 'a title'
   end
 end
