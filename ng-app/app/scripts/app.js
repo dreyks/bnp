@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('staticApp', [
+  .module('bnpApp', [
     'ngCookies',
     'ngResource',
     'ngSanitize',
