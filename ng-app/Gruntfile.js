@@ -7,10 +7,12 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 module.exports = function (grunt) {
 
+  console.log(grunt.option('port')); 
   var defaultForceState = grunt.option('force');
 
   // Load grunt tasks automatically
@@ -68,25 +70,16 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: grunt.option('port') || 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         //hostname: 'localhost',
-        hostname: '0.0.0.0',
-        livereload: 35729/*,
-        middleware: function (connect, options) {
-          return [
-            proxySnippet,
-            // static files
-            connect.static(options.base)
-            // browsable empty directories
-            // connect.directory(options.base)
-          ]
-        }*/
+        hostname: grunt.option('host') || '0.0.0.0',
+        livereload: 35729,
       },
       proxies: {
         context: '/api',
-        host: 'localhost',
-        port: 3000, // rails
+        host: grunt.option('proxy-host') || 'localhost',
+        port: grunt.option('proxy-port') || 3000, // rails
       },
       livereload: {
         options: {
@@ -386,7 +379,6 @@ module.exports = function (grunt) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
-
     grunt.task.run([
       'clean:server',
       'bowerInstall',
