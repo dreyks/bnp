@@ -1,32 +1,28 @@
 require 'spec_helper'
 
 describe Page do
-  #before_each { page = build(:page) }
+  subject { create :page }
   
-  it 'is not valid w/o a title' do
-    page = build(:page, title: '')
-    page.should_not be_valid
-  end
+  it { should be_valid }
+  it { should validate_presence_of :title }
+  it { should validate_presence_of :content }
+  it { should validate_uniqueness_of :title }
   
-  it 'is not valid w/o content' do
-    page = build(:page, content: '')
-    page.should_not be_valid
-  end
-  
-  it 'ensures title uniqueness' do
-    page = create(:page)
-    page2 = build(:page)
-    page2.should_not be_valid
-  end
-  
-  it 'calls for a slug when assigned a new title' do
-    new_title = 'newtitle'
-    page = build(:page)
-    page.should_receive(:slugify).with(new_title).and_return(new_title)
+  describe 'when assigned a new title' do
+    let(:page) { build(:page) }
+    before do
+      @new_title = 'new title'
+      @new_slug = 'new-title'
+      page.stub(:slugify).and_return(@new_slug)
+    end
     
-    
-    page.title = new_title
-    page.slug.should == new_title
-    
+    it 'calls for a slug' do
+      page.should_receive(:slugify).with(@new_title)
+      page.title = @new_title
+    end
+    it 'assings the slug' do
+      page.title = @new_title
+      page.slug.should == @new_slug
+    end
   end
 end

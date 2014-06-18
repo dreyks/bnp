@@ -9,9 +9,13 @@ group :development do
 end
 
 group :development, :test do
-    gem 'rspec-rails'
-    gem 'factory_girl_rails'
-    gem 'guard-rspec'
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'shoulda-matchers'
+  gem 'guard-rspec'
+  gem 'factory_girl_rails'
 end
 
 gem 'mysql2'
