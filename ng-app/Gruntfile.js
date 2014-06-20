@@ -12,7 +12,6 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 module.exports = function (grunt) {
 
-  console.log(grunt.option('port')); 
   var defaultForceState = grunt.option('force');
 
   // Load grunt tasks automatically
