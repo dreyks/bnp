@@ -43,10 +43,10 @@ module.exports = function (grunt) {
           livereload: true
         }
       },
-      jsTest: {
-        files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma']
-      },
+      //jsTest: {
+        //files: ['test/spec/{,*/}*.js'],
+        //tasks: ['newer:jshint:test', 'karma']
+      //},
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
@@ -358,6 +358,10 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         configFile: 'karma.conf.js',
+        singleRun: false
+      },
+      e2e: {
+        configFile: 'karma-e2e.conf.js',
         singleRun: true
       }
     }
@@ -394,13 +398,15 @@ module.exports = function (grunt) {
     grunt.task.run(['serve:' + target]);
   });
 
-  grunt.registerTask('test', [
+  grunt.registerTask('test', function(target) {
+    grunt.task.run([
     'clean:server',
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
-  ]);
+    'karma' + (target ? ':' + target : '')
+    ]);
+  });
 
   grunt.registerTask('build', [
       'force:on', // needed because dist folder is outside working directory
